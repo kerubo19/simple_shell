@@ -8,11 +8,16 @@
  */
 int execute_command(char **args)
 {
+	int is_builtin = handle_builtin_command(args);
+
 	pid_t pid;
 	pid_t wpid;
 	int status;
 
 	(void)wpid;
+
+	if (is_builtin)
+		return (1);
 
 	pid = fork();
 	if (pid == 0)

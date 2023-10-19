@@ -16,3 +16,45 @@ void free_memory(char **args)
 	*/
 	free(args);
 }
+
+/**
+ * handle_builtin_command - Handles built-in commands
+ * @args: An array of pointers to the command and its arguments.
+ *
+ * Return: 1 on success, 0on fail
+ */
+int handle_builtin_command(char **args)
+{
+	if (args == NULL || args[0] == NULL)
+	{
+		return (1);
+	}
+	if (strcmp(args[0], "exit") == 0)
+	{
+		exit(EXIT_SUCCESS);
+	}
+	else if (strcmp(args[0], "env") == 0)
+	{
+		print_environment();
+		return (1);
+	}
+	return (0);
+}
+/**
+ * print_environment - Prints the current environment
+ */
+void print_environment(void)
+{
+	char **env = environ;
+	int i = 0;
+	size_t len;
+	(void)i;
+
+	while (*env)
+	{
+		len = strlen(*env);
+		write(STDOUT_FILENO, *env, len);
+		write(STDOUT_FILENO, "\n", 1);
+		env++;
+	}
+}
