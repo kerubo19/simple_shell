@@ -25,13 +25,23 @@ void free_memory(char **args)
  */
 int handle_builtin_command(char **args)
 {
+	int status;
+
 	if (args == NULL || args[0] == NULL)
 	{
 		return (1);
 	}
 	if (strcmp(args[0], "exit") == 0)
 	{
-		exit(EXIT_SUCCESS);
+		if (args[1] != NULL)
+		{
+			status = atoi(args[1]);
+			exit(status);
+		}
+		else
+		{
+			exit(EXIT_SUCCESS);
+		}
 	}
 	else if (strcmp(args[0], "env") == 0)
 	{
